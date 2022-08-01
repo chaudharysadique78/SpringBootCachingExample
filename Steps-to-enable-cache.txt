@@ -1,0 +1,35 @@
+#steps to enable caching in spring boot application.
+
+1) Add caching dependency in pom.xml as below.
+
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-cache</artifactId>
+</dependency>
+
+2) Add @EnableCaching annotation on main method class below @SpringBootApplication annotation.
+
+3) Add @Cacheable("employees") annotation on the controller method for which you want to add cahche.
+
+note ("employees") is the cache name we can change it
+ 
+e.g 
+
+	@Cacheable("employees")
+	@GetMapping("/employees/{id}")
+	public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") Long employeeId)
+			throws ResourceNotFoundException {
+		Employee employee = employeeRepository.findById(employeeId)
+				.orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + employeeId));
+		// Adding Delay
+		long time = 3000L;
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ResponseEntity.ok().body(employee);
+	}
+
+
