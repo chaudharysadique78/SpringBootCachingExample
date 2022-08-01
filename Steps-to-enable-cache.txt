@@ -9,7 +9,7 @@
 
 2) Add @EnableCaching annotation on main method class below @SpringBootApplication annotation.
 
-3) Add @Cacheable("employees") annotation on the controller method for which you want to add cahche.
+3) Add @Cacheable("name of cache") annotation on the controller method for which you want to add cahche.
 
 note ("employees") is the cache name we can change it
  
