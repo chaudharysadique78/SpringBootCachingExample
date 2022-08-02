@@ -1,0 +1,13 @@
+redis-cli
+set blogid::1 "{'content': 'gcp blog', 'tag': ['cloud','google']}"
+get blogid::1
+set blogid::2 "{'content': 'Springboot blog', 'tag': ['java','spring']}"
+TTL blogid::2
+EXPIRE blogid::2 15
+TTL blogid::2 
+get blogid::2 
+TTL blogid::2 
+get blogid::2 
+# After 15 secs, if you try to get the data -> it would have been deleted
+
+redis-benchmark -t set,lpush -n 100000 -q
